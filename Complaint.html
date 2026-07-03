@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Complaint</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <header>
+        <h1>Complaint Submission Form</h1>
+    </header>
+<div class="complaint-container">
+
+        <div class="form-box">
+
+            <h2>Submit a Complaint</h2>
+
+            <form onsubmit="return submitComplaint()">
+                <label for="cid">Complaint ID</label>
+                <input type="text" id="cid"
+                       placeholder="Enter Complaint ID" required><br><br>
+
+                <label for="product">Product Name</label>
+                <input type="text" id="product"
+                       placeholder="Enter Product Name" required><br><br>
+
+                <label for="category">Complaint Category</label>
+                <select id="category" required>
+                    <option value="">Select Category</option>
+                    <option>Food Quality</option>
+                    <option>Delivery</option>
+                    <option>Packaging</option>
+                    <option>Customer Service</option>
+                    <option>Other</option>
+                </select><br><br>
+
+                <label for="priority">Priority</label>
+                <select id="priority" required>
+                    <option value="">Select Priority</option>
+                    <option>Low</option>
+                    <option>Medium</option>
+                    <option>High</option>
+                </select><br><br>
+
+                <label for="description">Complaint Description</label>
+                <textarea id="description"
+                          rows="6"
+                          placeholder="Describe your complaint"
+                          required></textarea><br><br>
+
+                <label for="photo">Upload Evidence Photo</label>
+                <input type="file" id="photo"><br><br>
+
+                <button type="submit">Submit Complaint</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <footer>
+    <p>&copy; Complaint Management System</p>
+</footer>
+
+   <script>
+function submitComplaint() {
+
+    let complaint = {
+        id: document.getElementById("cid").value,
+        product: document.getElementById("product").value,
+        category: document.getElementById("category").value,
+        priority: document.getElementById("priority").value,
+        status: "Pending"
+    };
+
+    let complaints =
+        JSON.parse(localStorage.getItem("complaints")) || [];
+
+    complaints.push(complaint);
+
+    localStorage.setItem(
+        "complaints",
+        JSON.stringify(complaints)
+    );
+
+    alert("Complaint Submitted Successfully");
+
+    return false;
+}
+</script>
+
+</body>
+</html>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <header>
+    <h1>Customer Dashboard</h1>
+   </header> 
+
+    <div class="container">
+
+        <h2>Welcome Customer</h2>
+        <p>Select an option below to continue.</p>
+
+        <div class="dashboard">
+
+            <div class="box">
+                <h3>Submit Complaint</h3>
+                <p>Create a new complaint regarding products or services.</p>
+                <a href="complaint.html" class="btn">
+                    Submit
+                </a>
+            </div>
+
+            <div class="box">
+                <h3>Track Complaints</h3>
+                <p>View the status of your previously submitted complaints.</p>
+                <a href="complaint-history.html" class="btn">
+                    Track
+                </a>
+            </div>
+
+            <div class="box">
+                <h3>Profile Details</h3>
+                <p>View your registered customer information.</p>
+
+                <p><strong>Name:</strong> Lisa Brown</p>
+                <p><strong>Email:</strong> lisa@gmail.com</p>
+                <p><strong>Phone:</strong> 0771234567</p>
+            </div>
+
+        </div>
+
+        <h2>Recent Complaints</h2>
+
+        <table>
+            <tr>
+                <th>Complaint ID</th>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Priority</th>
+                <th>Status</th>
+            </tr>
+
+            <tr>
+                <td>C001</td>
+                <td>Pizza</td>
+                <td>Food Quality</td>
+                <td>High</td>
+                <td>Pending</td>
+            </tr>
+
+            <tr>
+                <td>C002</td>
+                <td>Burger</td>
+                <td>Delivery</td>
+                <td>Medium</td>
+                <td>In Progress</td>
+            </tr>
+        </table>
+
+    </div>
+
+     <footer>
+        <p>&copy; Complaint Management System</p>
+    </footer>
+</body>
+</html>

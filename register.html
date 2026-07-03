@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>Complaint Management System</header>
+    <div class="register-container">
+    <div class="form-box">
+        <h2>Customer Registration</h2>
+        <form>
+            <label>Full name</label>
+            <input type="text" placeholder="Enter full name" required><br><br>
+
+            <label>Email</label>
+            <input type="email" placeholder="Enter email" required><br><br>
+
+            <label>Password</label>
+            <input type="password" placeholder="Enter password" required><br><br>
+
+            <label>Phone number</label>
+            <input type="text" placeholder="Enter Phone number" required><br><br>
+
+            <button type="submit">Register</button>
+        
+        </form>
+    </div><br><br>
+    
+
+    <script>
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Stop page from refreshing
+
+    // Grab values from registration fields
+    const fullName = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const password = document.getElementById('regPassword').value;
+    const phone = document.getElementById('regPhone').value.trim();
+
+    // Save the new user data into the browser's storage cache
+    localStorage.setItem('storedEmail', email);
+    localStorage.setItem('storedPassword', password);
+    localStorage.setItem('storedName', fullName);
+    localStorage.setItem('storedPhone', phone);
+
+    alert("Registration successful! You can now log in with these credentials.");
+    
+    // Clear fields
+    document.getElementById('registerForm').reset();
+});
+</script>
+    
+</body>
+</html>

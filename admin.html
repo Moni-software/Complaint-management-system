@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Admin Dashboard</h1>
+  </header>
+
+  <div class="container">
+    <h2 >Complaint Summary</h2>
+    <div class="dahboard">
+    <div class="box"> 
+        <h3>Total</h3>
+        <p id="totalCount">6</p>
+    </div>
+
+    <div class="box"> 
+        <h3>Pending</h3>
+        <p id="pendingCount">4</p>
+    </div>
+    
+    <div class="box"> 
+        <h3>In-progress</h3>
+        <p id="progressCount">1</p>
+    </div>
+
+    <div class="box"> 
+        <h3>Resolved</h3>
+        <p id="resolvedCount">1</p>
+    </div>
+</div>
+  </div><br>
+
+  <h2>Complaint List</h2>
+  <table>
+    <tr>
+        <th>ID</th>
+        <th>Product</th>
+        <th>Category</th>
+        <th>Priority</th>
+        <th>Status</th>
+    </tr>
+
+    <tbody id="complaintTable">
+    </tbody>
+</table><br><br>
+  
+  <div class="form-box">
+    <h2>Update Complaint</h2>
+
+    <form onsubmit="return updateComplaint()">
+
+    <label>Complaint ID</label>
+    <input type="text" id="complaintId" required>
+
+    <label>Status</label>
+    <select id="status">
+        <option>Pending</option>
+        <option>In-progress</option>
+        <option>Resolved</option>
+        <option>Closed</option>
+    </select>
+
+             <label>Priority</label>
+            <select>
+                <option>Low</option>
+                <option>In-progress</option>
+                <option>Resolved</option>
+                
+            </select><br><br>
+
+            <label>Admin responses</label>
+            <textarea rows="5" placeholder="Enter remarks or responses"></textarea>
+
+            <button type="submit">Update Complaint</button>
+            </form>
+            </div>
+  </div>
+
+
+<script>
+// This function updates a complaint's status when the form is submitted
+function updateComplaint() {
+    let enteredID = document.getElementById("complaintId").value.trim();
+    let newStatus = document.getElementById("status").value;
+
+    let complaints = JSON.parse(localStorage.getItem("complaints")) || [];
+    let found = false;
+
+    complaints.forEach(function(c) {
+        if (c.id === enteredID) {
+            c.status = newStatus;
+            found = true;
+        }
+    });
+
+    if (found) {
+        localStorage.setItem("complaints", JSON.stringify(complaints));
+        
+        // Refresh the list and calculations automatically
+        loadComplaints(); 
+
+        alert("Complaint Updated Successfully");
+        document.getElementById("complaintId").value = ""; // Clear input field
+    } else {
+        alert("Complaint ID Not Found");
+    }
+
+    return false;
+}
+
+// This function loads data into the table AND automatically calculates summary counts
+function loadComplaints() {
+    let complaints = JSON.parse(localStorage.getItem("complaints")) || [];
+    let table = document.getElementById("complaintTable");
+    
+    // Clear out old table rows
+    table.innerHTML = "";
+
+    // Reset counters to 0
+    let total = complaints.length;
+    let pending = 0;
+    let inProgress = 0;
+    let resolved = 0;
+
+    // Loop through complaints to build table rows and count statuses
+    complaints.forEach(function(c) {
+        // Normalize text to avoid matching errors due to spacing or uppercase letters
+        let currentStatus = c.status ? c.status.trim().toLowerCase() : "";
+
+        if (currentStatus === "pending") pending++;
+        if (currentStatus === "in-progress") inProgress++;
+        if (currentStatus === "resolved") resolved++;
+
+        // Add row to table
+        table.innerHTML += `
+        <tr>
+            <td>${c.id}</td>
+            <td>${c.product || 'N/A'}</td>
+            <td>${c.category || 'N/A'}</td>
+            <td>${c.priority || 'Low'}</td>
+            <td>${c.status}</td>
+        </tr>`;
+    });
+
+    if (document.getElementById("totalCount")) document.getElementById("totalCount").innerText = total;
+    if (document.getElementById("pendingCount")) document.getElementById("pendingCount").innerText = pending;
+    if (document.getElementById("progressCount")) document.getElementById("progressCount").innerText = inProgress;
+    if (document.getElementById("resolvedCount")) document.getElementById("resolvedCount").innerText = resolved;
+}
+
+
+window.onload = loadComplaints;
+</script>
+</body>
+</html>
